@@ -5,12 +5,14 @@
     "main": "dist/server.js",
     "scripts": {
         "start": "ts-node src/server.ts",
-        "build": "tsc"
+        "build": "tsc",
+        "build:docs": "redocly build-docs docs/openapi.json --output docs/index.html"
     },
     "dependencies": {
         "express": "^5.1.0"
     },
     "devDependencies": {
+        "@redocly/cli": "^2.8.0",
         "@types/express": "^5.0.3",
         "@types/node": "^22.18.12",
         "ts-node": "^10.9.2",
