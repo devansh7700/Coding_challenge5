@@ -1,6 +1,14 @@
 const fs = require('fs');
+const path = require('path');
 
-const input = JSON.parse(fs.readFileSync('openapi-full.json', 'utf8'));
+const input = JSON.parse(fs.readFileSync('openapi-base.json', 'utf8'));
+const outputDir = path.join(__dirname, '..', 'docs');
+
+// ✅ Create docs folder if missing
+if (!fs.existsSync(outputDir)) {
+  fs.mkdirSync(outputDir);
+}
+
 const publicSpec = {
   ...input,
   paths: Object.fromEntries(
@@ -11,5 +19,10 @@ const publicSpec = {
 };
 
 publicSpec.info.title = "Content Moderation API - Public Documentation";
-fs.writeFileSync('docs/openapi.json', JSON.stringify(publicSpec, null, 2));
+
+fs.writeFileSync(
+  path.join(outputDir, 'openapi.json'),
+  JSON.stringify(publicSpec, null, 2)
+);
+
 console.log("✅ Public OpenAPI specification generated successfully.");
